@@ -1,6 +1,6 @@
 FROM	debian:buster 
 
-LABEL   maintainer="heom@stdent.42seoul.kr"
+LABEL   maintainer="heom@student.42seoul.kr"
 
 RUN     apt-get update && apt-get install -y \
         nginx \
@@ -17,9 +17,9 @@ RUN     openssl req -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=KR/ST=Seou
 
 
 COPY    ./srcs/run.sh ./
-COPY    ./srcs/default ./tmp
-COPY    ./srcs/we-config.php ./tmp
-COPY    ./srcs/config.inc.php ./tmp
+#COPY    ./srcs/default ./
+COPY    ./srcs/we-config.php ./
+COPY    ./srcs/config.inc.php ./
 
 EXPOSE  80 443
 
