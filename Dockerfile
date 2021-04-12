@@ -2,6 +2,8 @@ FROM	debian:buster
 
 LABEL   maintainer="heom@stdent.42seoul.kr"
 
+RUN		sed -i 's/deb.debian.org/ftp.kr.debian.org/g' etc/apt/sources.list
+
 RUN     apt-get update && apt-get install -y \
         nginx \
         curl \
