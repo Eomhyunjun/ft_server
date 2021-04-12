@@ -4,7 +4,8 @@ LABEL   maintainer="heom@student.42seoul.kr"
 
 RUN		sed -i 's/deb.debian.org/ftp.kr.debian.org/g' etc/apt/sources.list
 
-RUN     apt-get update && apt-get install -y \
+RUN     apt-get update && apt-get upgrade -y
+RUN		apt-get install -y \
         nginx \
         curl \
         mariadb-server \
@@ -20,11 +21,13 @@ RUN     openssl req -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=KR/ST=Seou
 RUN     wget https://wordpress.org/latest.tar.gz && \
         tar -xvf latest.tar.gz && \
         mv wordpress/ var/www/html/
+RUN     chown -R www-data:www-data /var/www/html/wordpress
 
 RUN     wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz && \
         tar -xvf phpMyAdmin-5.0.2-all-languages.tar.gz && \
         mv phpMyAdmin-5.0.2-all-languages phpmyadmin && \
         mv phpmyadmin /var/www/html/
+RUN     chown -R www-data:www-data /var/www/html/phpmyadmin
 
 
 RUN     mv localhost.dev.crt etc/ssl/certs/
@@ -32,8 +35,7 @@ RUN     mv localhost.dev.key etc/ssl/private/
 RUN     chmod 444 etc/ssl/certs/localhost.dev.crt
 RUN     chmod 400 etc/ssl/private/localhost.dev.key
 
-RUN     chown -R www-data:www-data /var/www/html/wordpress
-RUN     chown -R www-data:www-data /var/www/html/phpmyadmin
+#RUN		echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 
 COPY    ./srcs/run.sh /tmp
 COPY    ./srcs/init.sql /tmp
