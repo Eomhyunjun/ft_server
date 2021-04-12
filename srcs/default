@@ -19,7 +19,7 @@ server {
 
 	server_name _;
 
-	autoindex off;
+	autoindex on;
 	location / {
 		try_files $uri $uri/ =404;
 	}
