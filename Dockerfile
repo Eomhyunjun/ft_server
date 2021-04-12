@@ -1,6 +1,6 @@
 FROM	debian:buster 
 
-LABEL   maintainer="heom@stdent.42seoul.kr"
+LABEL   maintainer="heom@student.42seoul.kr"
 
 RUN		sed -i 's/deb.debian.org/ftp.kr.debian.org/g' etc/apt/sources.list
 
@@ -19,9 +19,9 @@ RUN     openssl req -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=KR/ST=Seou
 
 
 COPY    ./srcs/run.sh ./
-COPY    ./srcs/default ./tmp
-COPY    ./srcs/we-config.php ./tmp
-COPY    ./srcs/config.inc.php ./tmp
+#COPY    ./srcs/default ./
+COPY    ./srcs/we-config.php ./
+COPY    ./srcs/config.inc.php ./
 
 EXPOSE  80 443
 
