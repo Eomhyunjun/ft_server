@@ -16,7 +16,6 @@ RUN		apt-get install -y \
         wget \
         php-fpm
 
-RUN     openssl req -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=KR/ST=Seoul/L=Seoul/O=42Seoul/OU=Lee/CN=localhost" -keyout localhost.dev.key -out localhost.dev.crt
 
 RUN     wget https://wordpress.org/latest.tar.gz && \
         tar -xvf latest.tar.gz && \
@@ -30,12 +29,11 @@ RUN     wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-
 RUN     chown -R www-data:www-data /var/www/html/phpmyadmin
 
 
+RUN     openssl req -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=KR/ST=Seoul/L=Seoul/O=42Seoul/OU=Lee/CN=localhost" -keyout localhost.dev.key -out localhost.dev.crt
 RUN     mv localhost.dev.crt etc/ssl/certs/
 RUN     mv localhost.dev.key etc/ssl/private/
 RUN     chmod 444 etc/ssl/certs/localhost.dev.crt
 RUN     chmod 400 etc/ssl/private/localhost.dev.key
-
-#RUN		echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 
 COPY    ./srcs/run.sh /tmp
 COPY    ./srcs/init.sql /tmp
